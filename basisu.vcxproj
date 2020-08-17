@@ -87,8 +87,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <OpenMPSupport>true</OpenMPSupport>
-      <AdditionalIncludeDirectories>
-      </AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;transcoder;encoder;3rdparty\apg;3rdparty\jpeg-compressor;3rdparty\lodepng</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -99,7 +98,7 @@
       <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>ispc_texcomp</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>ispc_texcomp;.;transcoder;encoder;3rdparty\apg;3rdparty\jpeg-compressor;3rdparty\lodepng</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <OpenMPSupport>true</OpenMPSupport>
     </ClCompile>
@@ -114,8 +113,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <OpenMPSupport>true</OpenMPSupport>
-      <AdditionalIncludeDirectories>
-      </AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;transcoder;encoder;3rdparty\apg;3rdparty\jpeg-compressor;3rdparty\lodepng</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>NDEBUG;_HAS_EXCEPTIONS=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BufferSecurityCheck>false</BufferSecurityCheck>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
@@ -132,7 +130,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>ispc_texcomp</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>ispc_texcomp;.;transcoder;encoder;3rdparty\apg;3rdparty\jpeg-compressor;3rdparty\lodepng</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>NDEBUG;_HAS_EXCEPTIONS=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BufferSecurityCheck>false</BufferSecurityCheck>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
@@ -147,53 +145,51 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="apg_bmp.c" />
-    <ClCompile Include="basisu_astc_decomp.cpp" />
-    <ClCompile Include="basisu_bc7enc.cpp" />
-    <ClCompile Include="basisu_ssim.cpp" />
-    <ClCompile Include="basisu_uastc_enc.cpp" />
-    <ClCompile Include="jpgd.cpp" />
-    <ClCompile Include="transcoder\basisu_transcoder.cpp" />
-    <ClInclude Include="apg_bmp.h" />
-    <ClInclude Include="basisu_bc7enc.h" />
-    <ClInclude Include="basisu_astc_decomp.h" />
-    <ClInclude Include="basisu_basis_file.h" />
-    <ClInclude Include="basisu_comp.h" />
-    <ClInclude Include="basisu_enc.h" />
-    <ClInclude Include="basisu_etc.h" />
-    <ClInclude Include="basisu_gpu_texture.h" />
-    <ClInclude Include="basisu_backend.h" />
-    <ClInclude Include="basisu_frontend.h" />
-    <ClInclude Include="basisu_pvrtc1_4.h" />
-    <ClInclude Include="basisu_global_selector_palette_helpers.h" />
-    <ClInclude Include="basisu_resampler.h" />
-    <ClInclude Include="basisu_resampler_filters.h" />
-    <ClCompile Include="basisu_resampler.cpp" />
-    <ClCompile Include="basisu_resample_filters.cpp" />
-    <ClInclude Include="basisu_ssim.h" />
-    <ClInclude Include="basisu_uastc_enc.h" />
-    <ClInclude Include="jpgd.h" />
-    <ClInclude Include="lodepng.h" />
+    <ClInclude Include="3rdparty\apg\apg_bmp.h" />
+    <ClCompile Include="3rdparty\apg\apg_bmp.c" />
+    <ClInclude Include="3rdparty\jpeg-compressor\jpgd.h" />
+    <ClCompile Include="3rdparty\jpeg-compressor\jpgd.cpp" />
+    <ClInclude Include="3rdparty\lodepng\lodepng.h" />
+    <ClCompile Include="3rdparty\lodepng\lodepng.cpp" />
+    <ClInclude Include="encoder\basisu_bc7enc.h" />
+    <ClInclude Include="encoder\basisu_astc_decomp.h" />
+    <ClInclude Include="encoder\basisu_basis_file.h" />
+    <ClInclude Include="encoder\basisu_comp.h" />
+    <ClInclude Include="encoder\basisu_enc.h" />
+    <ClInclude Include="encoder\basisu_etc.h" />
+    <ClInclude Include="encoder\basisu_gpu_texture.h" />
+    <ClInclude Include="encoder\basisu_backend.h" />
+    <ClInclude Include="encoder\basisu_frontend.h" />
+    <ClInclude Include="encoder\basisu_pvrtc1_4.h" />
+    <ClInclude Include="encoder\basisu_global_selector_palette_helpers.h" />
+    <ClInclude Include="encoder\basisu_resampler.h" />
+    <ClInclude Include="encoder\basisu_resampler_filters.h" />
+    <ClCompile Include="encoder\basisu_resampler.cpp" />
+    <ClCompile Include="encoder\basisu_resample_filters.cpp" />
+    <ClInclude Include="encoder\basisu_ssim.h" />
+    <ClInclude Include="encoder\basisu_uastc_enc.h" />
+    <ClCompile Include="encoder\basisu_basis_file.cpp" />
+    <ClCompile Include="encoder\basisu_comp.cpp" />
+    <ClCompile Include="encoder\basisu_enc.cpp" />
+    <ClCompile Include="encoder\basisu_etc.cpp" />
+    <ClCompile Include="encoder\basisu_backend.cpp" />
+    <ClCompile Include="encoder\basisu_frontend.cpp" />
+    <ClCompile Include="encoder\basisu_pvrtc1_4.cpp" />
+    <ClCompile Include="encoder\basisu_global_selector_palette_helpers.cpp" />
+    <ClCompile Include="encoder\basisu_gpu_texture.cpp" />
+    <ClCompile Include="encoder\basisu_astc_decomp.cpp" />
+    <ClCompile Include="encoder\basisu_bc7enc.cpp" />
+    <ClCompile Include="encoder\basisu_ssim.cpp" />
+    <ClCompile Include="encoder\basisu_uastc_enc.cpp" />
     <ClInclude Include="transcoder\basisu.h" />
     <ClInclude Include="transcoder\basisu_transcoder.h" />
+    <ClCompile Include="transcoder\basisu_transcoder.cpp" />
     <ClInclude Include="transcoder\basisu_transcoder_internal.h" />
     <ClInclude Include="transcoder\basisu_file_headers.h" />
     <ClInclude Include="transcoder\basisu_global_selector_cb.h" />
     <ClInclude Include="transcoder\basisu_global_selector_palette.h" />
     <ClInclude Include="transcoder\basisu_transcoder_uastc.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="basisu_basis_file.cpp" />
-    <ClCompile Include="basisu_comp.cpp" />
-    <ClCompile Include="basisu_enc.cpp" />
-    <ClCompile Include="basisu_etc.cpp" />
-    <ClCompile Include="basisu_backend.cpp" />
-    <ClCompile Include="basisu_frontend.cpp" />
-    <ClCompile Include="basisu_pvrtc1_4.cpp" />
-    <ClCompile Include="basisu_global_selector_palette_helpers.cpp" />
-    <ClCompile Include="basisu_gpu_texture.cpp" />
-    <ClCompile Include="lodepng.cpp" />
-    <ClCompile Include="basisu_tool.cpp" />
+    <ClCompile Include="tool/basisu_tool.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="transcoder\basisu_transcoder_tables_astc.inc" />
