@@ -1,17 +1,18 @@
+cmake_minimum_required(VERSION 3.1)
 project(basisu)
 
-cmake_minimum_required(VERSION 3.0)
 option(BUILD_X64 "build 64-bit" TRUE)
 option(STATIC "static linking" FALSE)
+option(BASISU_BUILD_TOOL "Build the basisu encoding tool" ON)
 
 message("Initial BUILD_X64=${BUILD_X64}")
 message("Initial CMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}")
 
-if( NOT CMAKE_BUILD_TYPE )
-  set( CMAKE_BUILD_TYPE Release )
-endif( NOT CMAKE_BUILD_TYPE )
+if(NOT CMAKE_BUILD_TYPE)
+  set(CMAKE_BUILD_TYPE Release)
+endif(NOT CMAKE_BUILD_TYPE)
 
-message( ${PROJECT_NAME} " build type: " ${CMAKE_BUILD_TYPE} )
+message(${PROJECT_NAME} " build type: " ${CMAKE_BUILD_TYPE})
 
 if (BUILD_X64)
 	message("Building 64-bit")
@@ -26,7 +27,6 @@ if (NOT MSVC)
    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE}")
    set(CMAKE_C_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE}")
 
-   set(CMAKE_CXX_FLAGS -std=c++11)
    set(GCC_COMPILE_FLAGS "-fvisibility=hidden -fPIC -fno-strict-aliasing -D_LARGEFILE64_SOURCE=1 -D_FILE_OFFSET_BITS=64 -Wall -Wextra -Wno-unused-local-typedefs -Wno-unused-value -Wno-unused-parameter -Wno-unused-variable")
 
    if (NOT BUILD_X64)
@@ -53,53 +53,27 @@ if (NOT MSVC)
    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} ${GCC_COMPILE_FLAGS} -D_DEBUG")
 endif()
 
-set(BASISU_SRC_LIST ${COMMON_SRC_LIST} 
-	basisu_backend.cpp
-	basisu_basis_file.cpp
-	basisu_comp.cpp
-	basisu_enc.cpp
-	basisu_etc.cpp
-	basisu_frontend.cpp
-	basisu_global_selector_palette_helpers.cpp
-	basisu_gpu_texture.cpp
-	basisu_pvrtc1_4.cpp
-	basisu_resampler.cpp
-	basisu_resample_filters.cpp
-	basisu_ssim.cpp
-	basisu_tool.cpp
-	basisu_astc_decomp.cpp
-	basisu_uastc_enc.cpp
-	basisu_bc7enc.cpp
-	lodepng.cpp
-	apg_bmp.c
-	jpgd.cpp
-	transcoder/basisu_transcoder.cpp
-	)
-
 if (APPLE)
    set(BIN_DIRECTORY "bin_osx")
 else()
    set(BIN_DIRECTORY "bin")
 endif()
-
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/${BIN_DIRECTORY})
 
-add_executable(basisu ${BASISU_SRC_LIST})
+include(GNUInstallDirs)
 
-if (NOT MSVC)
-   target_link_libraries(basisu m pthread)
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
+if(MSVC AND BUILD_SHARED_LIBS)
+   set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 endif()
 
-if (NOT EMSCRIPTEN)
-	install(TARGETS basisu DESTINATION bin)
-	
-	if (UNIX)
-		if (CMAKE_BUILD_TYPE STREQUAL Release)
-			if (APPLE)
-				add_custom_command(TARGET basisu POST_BUILD COMMAND strip -X -x ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/basisu)
-			else()
-				add_custom_command(TARGET basisu POST_BUILD COMMAND strip -g -X -x ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/basisu)
-			endif()
-		endif()
-	endif()
+add_subdirectory(3rdparty)
+add_subdirectory(transcoder)
+add_subdirectory(encoder)
+
+if(BASISU_BUILD_TOOL)
+	add_subdirectory(tool)
 endif()
