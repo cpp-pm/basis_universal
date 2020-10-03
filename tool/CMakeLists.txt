@@ -1,9 +1,8 @@
 file(GLOB BASISU_TOOL_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
 
-add_executable(basisu_tool ${BASISU_TOOL_SRCS})
-set_target_properties(basisu_tool PROPERTIES OUTPUT_NAME "basisu")
-target_link_libraries(basisu_tool PRIVATE basisu_encoder basisu_transcoder)
-target_include_directories(basisu_tool
+add_executable(basisu ${BASISU_TOOL_SRCS})
+target_link_libraries(basisu PRIVATE basisu_encoder basisu_transcoder)
+target_include_directories(basisu
     PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}
     $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/..>
@@ -21,4 +20,4 @@ if (NOT EMSCRIPTEN)
      endif()
  endif()
 
-install(TARGETS basisu_tool DESTINATION "${CMAKE_INSTALL_BINDIR}")
+install(TARGETS basisu DESTINATION "${CMAKE_INSTALL_BINDIR}")
