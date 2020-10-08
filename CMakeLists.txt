@@ -64,8 +64,6 @@ else()
    #set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} ${GCC_COMPILE_FLAGS} -D_DEBUG")
 endif()
 
-add_compile_definitions("$<$<CONFIG:DEBUG>:_DEBUG>")
-
 if (APPLE)
    set(BIN_DIRECTORY "bin_osx")
 else()

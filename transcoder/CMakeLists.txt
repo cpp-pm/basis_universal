@@ -7,6 +7,8 @@ target_include_directories(basisu_transcoder
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/..>
     $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME}>)
 
+target_compile_definitions(basisu_transcoder PUBLIC "$<$<CONFIG:DEBUG>:_DEBUG>")
+
 install(TARGETS basisu_transcoder
     EXPORT "${TARGETS_EXPORT_NAME}"
     INCLUDES DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME}"
