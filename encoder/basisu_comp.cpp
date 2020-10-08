@@ -17,7 +17,7 @@
 #include <unordered_set>
 #include <atomic>
 #define MINIZ_NO_ZLIB_APIS
-#include "basisu_miniz.h"
+#include "miniz/miniz.h"
 
 #define BASISU_USE_STB_IMAGE_RESIZE_FOR_MIPMAP_GEN 0
 #define DEBUG_CROP_TEXTURE_TO_64x64 (0)

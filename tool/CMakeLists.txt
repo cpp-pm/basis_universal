@@ -4,8 +4,7 @@ add_executable(basisu ${BASISU_TOOL_SRCS})
 target_link_libraries(basisu PRIVATE basisu_encoder basisu_transcoder)
 target_include_directories(basisu
     PUBLIC
-    ${CMAKE_CURRENT_SOURCE_DIR}
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/..>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/..>
     $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
 
 if (NOT EMSCRIPTEN)
@@ -20,4 +19,6 @@ if (NOT EMSCRIPTEN)
      endif()
  endif()
 
-install(TARGETS basisu DESTINATION "${CMAKE_INSTALL_BINDIR}")
+install(TARGETS basisu
+        EXPORT "${TARGETS_EXPORT_NAME}"
+        DESTINATION "${CMAKE_INSTALL_BINDIR}")
