@@ -1,18 +1,17 @@
 file(GLOB BASISU_ENCODER_HDRS ${CMAKE_CURRENT_SOURCE_DIR}/*.h ${CMAKE_CURRENT_SOURCE_DIR}/*.hpp)
 file(GLOB BASISU_ENCODER_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
 
-message("INCLUDE: ${CMAKE_INSTALL_INCLUDEDIR}")
-
 add_library(basisu_encoder ${BASISU_ENCODER_SRCS} ${BASISU_ENCODER_HDRS})
 target_link_libraries(basisu_encoder basisu_transcoder LodePNG::lodepng apg::bmp jpeg-compressor::jpgd miniz::miniz)
 target_include_directories(basisu_encoder
     PUBLIC
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/..>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
     $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME}>)
 
+find_package(Threads REQUIRED)
+target_link_libraries(basisu_encoder Threads::Threads)
 if (NOT MSVC)
-    find_package(Threads REQUIRED)
-    target_link_libraries(basisu_encoder m Threads::Threads)
+    target_link_libraries(basisu_encoder m)
 endif()
 
 install(TARGETS basisu_encoder
